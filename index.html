@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cronômetro 2 Horas com Chat</title>
+    <title>Cronômetro 2 Horas com Chat Livre</title>
     <style>
         body {
             margin: 0;
@@ -42,6 +42,8 @@
             width: 350px;
             height: 100%;
             background: #161b22;
+            display: flex;
+            flex-direction: column;
         }
         iframe {
             width: 100%;
@@ -50,23 +52,26 @@
         }
         @media (max-width: 768px) {
             body { flex-direction: column; }
-            .chat-container { width: 100%; height: 40%; }
+            .chat-container { width: 100%; height: 45%; }
         }
     </style>
 </head>
 <body>
 
+    <!-- LADO ESQUERDO: Cronômetro de 2 horas em Loop -->
     <div class="timer-container">
         <h1>Tempo Restante</h1>
         <div class="timer" id="display">02:00:00</div>
     </div>
 
+    <!-- LADO DIREITO: Chat Sem Login (Apenas Apelido) -->
     <div class="chat-container">
-        <iframe src="https://minnit.chat/demo?embed&&dark" allowTransparency="true"></iframe>
+        <!-- Chat público aberto via TLK.IO (basta digitar um apelido para falar) -->
+        <iframe src="https://tlk.io" allowTransparency="true"></iframe>
     </div>
 
     <script>
-        const DURACAO_DOIS_PRO_LOOP = 2 * 60 * 60;
+        const DURACAO_DOIS_PRO_LOOP = 2 * 60 * 60; // 2 horas em segundos
         let tempoRestante = DURACAO_DOIS_PRO_LOOP;
 
         function atualizarCronometro() {
@@ -81,7 +86,7 @@
             document.getElementById("display").innerText = `${horas}:${minutos}:${segundos}`;
 
             if (tempoRestante <= 0) {
-                tempoRestante = DURACAO_DOIS_PRO_LOOP;
+                tempoRestante = DURACAO_DOIS_PRO_LOOP; // Reinicia sozinho
             } else {
                 tempoRestante--;
             }

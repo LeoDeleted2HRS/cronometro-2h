@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronômetro 2 Horas com Chat</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .timer-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-right: 1px solid #30363d;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #58a6ff;
+        }
+        .timer {
+            font-size: 6rem;
+            font-weight: bold;
+            font-family: monospace;
+            background: #161b22;
+            padding: 20px 40px;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+            letter-spacing: 2px;
+        }
+        .chat-container {
+            width: 350px;
+            height: 100%;
+            background: #161b22;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .chat-container { width: 100%; height: 40%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="timer-container">
+        <h1>Tempo Restante</h1>
+        <div class="timer" id="display">02:00:00</div>
+    </div>
+
+    <div class="chat-container">
+        <iframe src="https://minnit.chat/demo?embed&&dark" allowTransparency="true"></iframe>
+    </div>
+
+    <script>
+        const DURACAO_DOIS_PRO_LOOP = 2 * 60 * 60;
+        let tempoRestante = DURACAO_DOIS_PRO_LOOP;
+
+        function atualizarCronometro() {
+            let horas = Math.floor(tempoRestante / 3600);
+            let minutos = Math.floor((tempoRestante % 3600) / 60);
+            let segundos = tempoRestante % 60;
+
+            horas = horas < 10 ? "0" + horas : horas;
+            minutos = minutos < 10 ? "0" + minutos : minutos;
+            segundos = segundos < 10 ? "0" + segundos : segundos;
+
+            document.getElementById("display").innerText = `${horas}:${minutos}:${segundos}`;
+
+            if (tempoRestante <= 0) {
+                tempoRestante = DURACAO_DOIS_PRO_LOOP;
+            } else {
+                tempoRestante--;
+            }
+        }
+
+        setInterval(atualizarCronometro, 1000);
+        atualizarCronometro();
+    </script>
+</body>
+</html>
